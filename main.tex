@@ -1,0 +1,442 @@
+\documentclass[11pt, a4paper]{article}
+
+% --- PACKAGES ---
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{geometry}
+\usepackage{fontspec}
+\usepackage{tikz} % Paquete añadido para generar las ilustraciones vectoriales de forma nativa
+
+% --- STREAMING_CHUNK: Configuring babel, fonts, and page geometry... ---
+% Configuración de márgenes
+\geometry{a4paper, top=2.5cm, bottom=2.5cm, left=2.2cm, right=2.2cm}
+
+% Configuración del idioma principal a español con soporte multilingüe
+\usepackage[spanish, bidi=basic, provide=*]{babel}
+\babelprovide[import, onchar=ids fonts]{spanish}
+\babelprovide[import, onchar=ids fonts]{english}
+
+% Definición de la fuente tipográfica predeterminada (Noto Sans para alta legibilidad)
+\babelfont{rm}{Noto Sans}
+
+\usepackage{enumitem}
+\setlist[itemize]{label=-}
+
+% --- STREAMING_CHUNK: Defining custom styles and math commands... ---
+% Configuración visual para mejorar la presentación de secciones
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\Large\bfseries}{\thesection}{1em}{}[{\titlerule[0.8pt]}]
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% Custom spacing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8em}
+
+% --- STREAMING_CHUNK: Beginning document and rendering title block... ---
+\begin{document}
+
+\begin{center}
+    {\LARGE \textbf{Formulario de Cálculo Vectorial}} \\
+    \vspace{0.2cm}
+    {\large \textbf{Sistemas de Coordenadas y Operaciones Fundamentales}} \\
+    \vspace{0.1cm}
+    \rule{\linewidth}{1.2pt}
+\end{center}
+
+\vspace{0.5cm}
+
+% --- STREAMING_CHUNK: Creating the Cartesian Coordinates section... ---
+\section{Sistemas de Coordenadas}
+
+En el estudio de campos electromagnéticos y física matemática, la elección de un sistema de coordenadas adecuado simplifica significativamente la resolución de problemas. En un sistema ortogonal de coordenadas generales $(u_1, u_2, u_3)$, el diferencial de línea está determinado por $d\vec{l} = h_1 du_1 \hat{e}_1 + h_2 du_2 \hat{e}_2 + h_3 du_3 \hat{e}_3$, donde los valores $h_i$ representan los coeficientes métricos o factores de escala.
+
+A continuación, se resume la relación de estas variables y coeficientes para los tres sistemas fundamentales:
+
+\begin{center}
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{lcccccc}
+        \toprule
+        \textbf{Sistema de Coordenadas} & \textbf{$u_1$} & \textbf{$u_2$} & \textbf{$u_3$} & \textbf{$h_1$} & \textbf{$h_2$} & \textbf{$h_3$} \\
+        \midrule
+        \textbf{Cartesianas} $(x, y, z)$ & $x$ & $y$ & $z$ & $1$ & $1$ & $1$ \\
+        \textbf{Cilíndricas} $(\rho, \phi, z)$ & $\rho$ & $\phi$ & $z$ & $1$ & $\rho$ & $1$ \\
+        \textbf{Esféricas} $(r, \theta, \phi)$ & $r$ & $\theta$ & $\phi$ & $1$ & $r$ & $r\sin\theta$ \\
+        \bottomrule
+    \end{tabular}
+    \par\vspace{0.15cm}
+    \small\textit{Tabla 1: Coordenadas generales $(u_1, u_2, u_3)$ y coeficientes métricos $(h_1, h_2, h_3)$.}
+\end{center}
+
+\subsection{1. Coordenadas Rectangulares (Cartesianas) $(x, y, z)$}
+
+Este sistema utiliza tres ejes ortogonales fijos. Los vectores unitarios se denotan aquí mediante la letra~$\vec{e}$ ($\hat{e}_x, \hat{e}_y, \hat{e}_z$).
+
+\begin{itemize}
+    \item \textbf{Representación de un Vector:}
+    $$\vec{A} = A_x\hat{e}_x + A_y\hat{e}_y + A_z\hat{e}_z$$
+    
+    \item \textbf{Diferencial de Longitud ($d\vec{l}$):}
+    $$d\vec{l} = dx\hat{e}_x + dy\hat{e}_y + dz\hat{e}_z$$
+    
+    \item \textbf{Diferenciales de Área ($d\vec{s}$):}
+    Se definen perpendiculares a cada plano de coordenadas:
+    \begin{align*}
+        d\vec{s}_x &= dy\,dz\,\hat{e}_x \\
+        d\vec{s}_y &= dx\,dz\,\hat{e}_y \\
+        d\vec{s}_z &= dx\,dy\,\hat{e}_z
+    \end{align*}
+    
+    \item \textbf{Diferencial de Volumen ($dv$):}
+    $$\boxed{dv = dx\,dy\,dz}$$
+\end{itemize}
+
+% --- STREAMING_CHUNK: Drawing Cartesian Coordinate System diagram... ---
+\begin{center}
+    \begin{tikzpicture}[scale=1.2, >=stealth]
+        % Ejes coordenados
+        \draw[->, thick] (0,0) -- (-1.5,-1.5) node[left] {$x$};
+        \draw[->, thick] (0,0) -- (3,0) node[right] {$y$};
+        \draw[->, thick] (0,0) -- (0,3) node[above] {$z$};
+        
+        % Proyecciones en ejes y planos (Líneas de guía)
+        \draw[dashed, gray] (0,0) -- (-0.8,-0.8) node[left, black, scale=0.8] {$x$};
+        \draw[dashed, gray] (0,0) -- (1.8,0) node[below, black, scale=0.8] {$y$};
+        \draw[dashed, gray] (-0.8,-0.8) -- (1.0,-0.8);
+        \draw[dashed, gray] (1.8,0) -- (1.0,-0.8) node[below right, black, scale=0.7] {$(x,y,0)$};
+        \draw[dashed, gray] (0,0) -- (0,1.8) node[left, black, scale=0.8] {$z$};
+        \draw[dashed, gray] (1.0,-0.8) -- (1.0, 1.0);
+        \draw[dashed, gray] (0,1.8) -- (1.0,1.0);
+        
+        % Punto P y etiqueta
+        \fill[blue] (1.0,1.0) circle (2pt) node[above right, black] {$P(x,y,z)$};
+    \end{tikzpicture}
+    \par\vspace{0.1cm}
+    \small\textit{Fig. 1: Sistema de Coordenadas Rectangulares (Cartesianas).}
+\end{center}
+
+\vspace{0.3cm}
+
+% --- STREAMING_CHUNK: Updating cylindrical coordinates unit vectors... ---
+\subsection{2. Coordenadas Cilíndricas $(\rho, \phi, z)$}
+
+Este sistema es ideal para geometrías con simetría axial. Se compone de un radio de cilindro~$\rho$, un ángulo azimutal~$\phi$ y la coordenada vertical~$z$.
+
+\begin{itemize}
+    \item \textbf{Representación de un Vector:}
+    $$\vec{A} = A_\rho\hat{e}_\rho + A_\phi\hat{e}_\phi + A_z\hat{e}_z$$
+    
+    \item \textbf{Diferencial de Longitud ($d\vec{l}$):}
+    $$d\vec{l} = d\rho\hat{e}_\rho + \rho\,d\phi\hat{e}_\phi + dz\hat{e}_z$$
+    
+    % --- STREAMING_CHUNK: Fixing typo in align block for cylindrical coordinates... ---
+    \item \textbf{Diferenciales de Área ($d\vec{s}$):}
+    \begin{align*}
+        d\vec{s}_\rho &= \rho\,d\phi\,dz\,\hat{e}_\rho \\
+        d\vec{s}_\phi &= d\rho\,dz\,\hat{e}_\phi \\
+        d\vec{s}_z &= \rho\,d\rho\,d\phi\,\hat{e}_z
+    \end{align*}
+    
+    \item \textbf{Diferencial de Volumen ($dv$):}
+    $$\boxed{dv = \rho\,d\rho\,d\phi\,dz}$$
+\end{itemize}
+
+% --- STREAMING_CHUNK: Drawing Cylindrical Coordinate System diagram... ---
+\begin{center}
+    \begin{tikzpicture}[scale=1.2, >=stealth]
+        % Ejes coordenados
+        \draw[->, thick] (0,0) -- (-1.5,-1.5) node[left] {$x$};
+        \draw[->, thick] (0,0) -- (3,0) node[right] {$y$};
+        \draw[->, thick] (0,0) -- (0,3) node[above] {$z$};
+        
+        % Coordenadas auxiliares
+        \coordinate (O) at (0,0);
+        \coordinate (Q) at (1.2,-0.6);
+        \coordinate (P) at (1.2,1.2);
+        
+        % Vector rho (radio cilíndrico en el plano XY)
+        \draw[thick, blue] (O) -- (Q) node[midway, below left, scale=0.8] {$\rho$};
+        
+        % Altura z (paralela al eje z)
+        \draw[dashed, thick, black!60!green] (Q) -- (P) node[midway, right, scale=0.8] {$z$};
+        
+        % Guías adicionales
+        \draw[dashed, gray] (0,1.2) -- (P);
+        \draw[dashed, gray] (0,0) -- (0,1.2) node[left, scale=0.8] {$z$};
+        
+        % Punto P
+        \fill[blue] (P) circle (2pt) node[above right, black] {$P(\rho, \phi, z)$};
+        
+        % Ángulo azimutal phi (desde el eje x hacia la proyección rho)
+        \draw[->, thin] (-0.35,-0.35) to [out=-45, in=200] (0.4,-0.2) node[below, scale=0.8] {$\phi$};
+    \end{tikzpicture}
+    \par\vspace{0.1cm}
+    \small\textit{Fig. 2: Sistema de Coordenadas Cilíndricas.}
+\end{center}
+
+\vspace{0.3cm}
+
+% --- STREAMING_CHUNK: Updating spherical coordinates unit vectors... ---
+\subsection{3. Coordenadas Esféricas $(r, \theta, \phi)$}
+
+Este sistema es óptimo para configuraciones con simetría de punto o central. Se define por la distancia al origen~$r$, el ángulo polar o colatitud~$\theta$, y el ángulo azimutal~$\phi$.
+
+\begin{itemize}
+    \item \textbf{Representación de un Vector:}
+    $$\vec{A} = A_r\hat{e}_r + A_\theta\hat{e}_\theta + A_\phi\hat{e}_\phi$$
+    
+    \item \textbf{Diferencial de Longitud ($d\vec{l}$):}
+    $$d\vec{l} = dr\hat{e}_r + r\,d\theta\hat{e}_\theta + r\sin\theta\,d\phi\hat{e}_\phi$$
+    
+    \item \textbf{Diferenciales de Área ($d\vec{s}$):}
+    \begin{align*}
+        d\vec{s}_r &= r^2\sin\theta\,d\theta\,d\phi\,\hat{e}_r \\
+        d\vec{s}_\theta &= r\sin\theta\,dr\,d\phi\,\hat{e}_\theta \\
+        d\vec{s}_\phi &= r\,dr\,d\theta\,\hat{e}_\phi
+    \end{align*}
+    
+    \item \textbf{Diferencial de Volumen ($dv$):}
+    $$\boxed{dv = r^2\sin\theta\,dr\,d\theta\,d\phi}$$
+\end{itemize}
+
+% --- STREAMING_CHUNK: Drawing Spherical Coordinate System diagram... ---
+\begin{center}
+    \begin{tikzpicture}[scale=1.2, >=stealth]
+        % Ejes coordenados
+        \draw[->, thick] (0,0) -- (-1.5,-1.5) node[left] {$x$};
+        \draw[->, thick] (0,0) -- (3,0) node[right] {$y$};
+        \draw[->, thick] (0,0) -- (0,3) node[above] {$z$};
+        
+        % Coordenadas auxiliares
+        \coordinate (O) at (0,0);
+        \coordinate (P) at (1.1,1.5);
+        \coordinate (Q) at (1.1,-0.6);
+        
+        % Radio vector r (distancia al origen)
+        \draw[thick, red] (O) -- (P) node[midway, left, scale=0.8] {$r$};
+        
+        % Proyección sobre el plano XY (altura r*cos(theta))
+        \draw[dashed, gray] (P) -- (Q);
+        
+        % Componente de proyección en el plano XY (r*sin(theta))
+        \draw[dashed, blue] (O) -- (Q) node[midway, below left, scale=0.7] {$r\sin\theta$};
+        
+        % Punto P
+        \fill[red] (P) circle (2pt) node[above right, black] {$P(r, \theta, \phi)$};
+        
+        % Ángulo polar / colatitud theta (desde el eje z)
+        \draw[->, thin] (0,0.6) to [out=0, in=60] (0.35,0.48) node[above right, scale=0.8] {$\theta$};
+        
+        % Ángulo azimutal phi (desde el eje x en el plano XY)
+        \draw[->, thin] (-0.35,-0.35) to [out=-45, in=200] (0.4,-0.2) node[below, scale=0.8] {$\phi$};
+    \end{tikzpicture}
+    \par\vspace{0.1cm}
+    \small\textit{Fig. 3: Sistema de Coordenadas Esféricas.}
+\end{center}
+
+\vspace{0.5cm}
+
+% --- STREAMING_CHUNK: Adding coordinate transformation matrices... ---
+\section{Transformación entre Sistemas de Coordenadas}
+
+Para proyectar campos vectoriales, componentes o vectores unitarios de un sistema a otro, se utilizan las siguientes relaciones geométricas y matrices de rotación ortogonales (donde la matriz inversa es igual a su traspuesta).
+
+\subsection{1. Coordenadas Rectangulares $\leftrightarrow$ Coordenadas Cilíndricas}
+
+Las equivalencias de posición entre las variables de ambos sistemas son:
+\begin{align*}
+    x &= \rho\cos\phi & \rho &= \sqrt{x^2+y^2} \\
+    y &= \rho\sin\phi & \phi &= \arctan\left(\frac{y}{x}\right) \\
+    z &= z            & z    &= z
+\end{align*}
+
+La matriz de transformación para convertir componentes o vectores de la base rectangular a la base cilíndrica está dada por:
+\begin{equation*}
+    \begin{pmatrix} \hat{e}_\rho \\ \hat{e}_\phi \\ \hat{e}_z \end{pmatrix} = 
+    \begin{pmatrix} 
+        \cos\phi & \sin\phi & 0 \\ 
+        -\sin\phi & \cos\phi & 0 \\ 
+        0 & 0 & 1 
+    \end{pmatrix}
+    \begin{pmatrix} \hat{e}_x \\ \hat{e}_y \\ \hat{e}_z \end{pmatrix}
+\end{equation*}
+
+Para realizar la transformación inversa (de base cilíndrica a rectangular), se aplica la matriz traspuesta:
+\begin{equation*}
+    \begin{pmatrix} \hat{e}_x \\ \hat{e}_y \\ \hat{e}_z \end{pmatrix} = 
+    \begin{pmatrix} 
+        \cos\phi & -\sin\phi & 0 \\ 
+        \sin\phi & \cos\phi & 0 \\ 
+        0 & 0 & 1 
+    \end{pmatrix}
+    \begin{pmatrix} \hat{e}_\rho \\ \hat{e}_\phi \\ \hat{e}_z \end{pmatrix}
+\end{equation*}
+
+\subsection{2. Coordenadas Rectangulares $\leftrightarrow$ Coordenadas Esféricas}
+
+Las equivalencias de posición entre ambos sistemas son:
+\begin{align*}
+    x &= r\sin\theta\cos\phi & r      &= \sqrt{x^2+y^2+z^2} \\
+    y &= r\sin\theta\sin\phi & \theta &= \arccos\left(\frac{z}{r}\right) \\
+    z &= r\cos\theta         & \phi   &= \arctan\left(\frac{y}{x}\right)
+\end{align*}
+
+La matriz de transformación de la base rectangular a la base esférica se define como:
+\begin{equation*}
+    \begin{pmatrix} \hat{e}_r \\ \hat{e}_\theta \\ \hat{e}_\phi \end{pmatrix} = 
+    \begin{pmatrix} 
+        \sin\theta\cos\phi & \sin\theta\sin\phi & \cos\theta \\ 
+        \cos\theta\cos\phi & \cos\theta\sin\phi & -\sin\theta \\ 
+        -\sin\phi & \cos\phi & 0 
+    \end{pmatrix}
+    \begin{pmatrix} \hat{e}_x \\ \hat{e}_y \\ \hat{e}_z \end{pmatrix}
+\end{equation*}
+
+Para realizar la transformación inversa (de base esférica a rectangular), se aplica su matriz traspuesta:
+\begin{equation*}
+    \begin{pmatrix} \hat{e}_x \\ \hat{e}_y \\ \hat{e}_z \end{pmatrix} = 
+    \begin{pmatrix} 
+        \sin\theta\cos\phi & \cos\theta\cos\phi & -\sin\phi \\ 
+        \sin\theta\sin\phi & \cos\theta\sin\phi & \cos\phi \\ 
+        \cos\theta & -\sin\theta & 0 
+    \end{pmatrix}
+    \begin{pmatrix} \hat{e}_r \\ \hat{e}_\theta \\ \hat{e}_\phi \end{pmatrix}
+\end{equation*}
+
+\vspace{0.5cm}
+
+% --- STREAMING_CHUNK: Adding vector operations section... ---
+\section{Operaciones Vectoriales en Coordenadas Rectangulares}
+
+Dada la base ortonormal $\{\hat{e}_x, \hat{e}_y, \hat{e}_z\}$, consideremos dos vectores generales expresados de la siguiente forma:
+$$\vec{A} = A_x\hat{e}_x + A_y\hat{e}_y + A_z\hat{e}_z \quad y \quad \vec{B} = B_x\hat{e}_x + B_y\hat{e}_y + B_z\hat{e}_z$$
+
+\subsection{Producto Punto (Escalar)}
+El producto escalar produce un resultado numérico y es proporcional a la proyección de un vector sobre el otro:
+$$\boxed{\vec{A} \cdot \vec{B} = A_xB_x + A_yB_y + A_zB_z}$$
+
+\subsection{Producto Cruz (Vectorial)}
+El producto cruz resulta en un vector ortogonal al plano que forman los vectores originales y se calcula matemáticamente mediante un determinante:
+$$\vec{A} \times \vec{B} = \begin{vmatrix} \hat{e}_x & \hat{e}_y & \hat{e}_z \\ A_x & A_y & A_z \\ B_x & B_y & B_z \end{vmatrix}$$
+
+Desarrollando este determinante mediante cofactores en la primera fila, se obtiene la expresión final de los componentes:
+$$\boxed{\vec{A} \times \vec{B} = (A_yB_z - A_zB_y)\hat{e}_x + (A_zB_x - A_xB_z)\hat{e}_y + (A_xB_y - A_yB_x)\hat{e}_z}$$
+
+\vspace{0.5cm}
+
+% --- STREAMING_CHUNK: Adding differential operators section... ---
+\section{Operadores Diferenciales y su Significado Geométrico}
+
+En el cálculo diferencial vectorial, el operador nabla ($\nabla$) permite evaluar el comportamiento espacial de campos escalares y vectoriales. A continuación se presentan los tres operadores fundamentales.
+
+\subsection{1. Gradiente ($\nabla V$)}
+
+El gradiente opera sobre una función escalar (o campo escalar) $V$ para dar como resultado un campo vectorial.
+
+\begin{itemize}
+    \item \textbf{Significado Geométrico y Físico:}
+    El vector gradiente en un punto representa la \textbf{dirección y sentido de máximo crecimiento} del campo escalar. Su magnitud corresponde a la tasa máxima de variación espacial de dicho campo. Visualmente, el gradiente siempre es \textbf{perpendicular a las superficies o curvas equipotenciales} (líneas de nivel).
+    
+    \item \textbf{Fórmulas por Sistema de Coordenadas:}
+    \begin{itemize}
+        \item \textbf{Rectangulares:}
+        $$\nabla V = \frac{\partial V}{\partial x}\hat{e}_x + \frac{\partial V}{\partial y}\hat{e}_y + \frac{\partial V}{\partial z}\hat{e}_z$$
+        
+        \item \textbf{Cilíndricas:}
+        $$\nabla V = \frac{\partial V}{\partial \rho}\hat{e}_\rho + \frac{1}{\rho}\frac{\partial V}{\partial \phi}\hat{e}_\phi + \frac{\partial V}{\partial z}\hat{e}_z$$
+        
+        \item \textbf{Esféricas:}
+        $$\nabla V = \frac{\partial V}{\partial r}\hat{e}_r + \frac{1}{r}\frac{\partial V}{\partial \theta}\hat{e}_\theta + \frac{1}{r\sin\theta}\frac{\partial V}{\partial \phi}\hat{e}_\phi$$
+    \end{itemize}
+\end{itemize}
+
+\vspace{0.3cm}
+
+% --- STREAMING_CHUNK: Adding Divergence formulas and geometric meaning... ---
+\subsection{2. Divergencia ($\nabla \cdot \vec{A}$)}
+
+La divergencia actúa sobre un campo vectorial $\vec{A}$ y produce un resultado escalar.
+
+\begin{itemize}
+    \item \textbf{Significado Geométrico y Físico:}
+    La divergencia mide la tendencia neta de un campo vectorial a \textbf{originarse o terminar} en un punto infinitesimal del espacio. Físicamente representa el \textbf{flujo saliente neto por unidad de volumen}:
+    \begin{itemize}
+        \item $\nabla \cdot \vec{A} > 0$: El punto actúa como una \textbf{fuente} (se crea flujo hacia el exterior).
+        \item $\nabla \cdot \vec{A} < 0$: El punto actúa como un \textbf{sumidero} (el flujo converge hacia él).
+        \item $\nabla \cdot \vec{A} = 0$: El campo es \textbf{solenoidal} (libre de fuentes, la cantidad de flujo que entra es igual a la que sale).
+    \end{itemize}
+    
+    \item \textbf{Fórmulas por Sistema de Coordenadas:}
+    \begin{itemize}
+        \item \textbf{Rectangulares:}
+        $$\nabla \cdot \vec{A} = \frac{\partial A_x}{\partial x} + \frac{\partial A_y}{\partial y} + \frac{\partial A_z}{\partial z}$$
+        
+        \item \textbf{Cilíndricas:}
+        $$\nabla \cdot \vec{A} = \frac{1}{\rho}\frac{\partial}{\partial \rho}(\rho A_\rho) + \frac{1}{\rho}\frac{\partial A_\phi}{\partial \phi} + \frac{\partial A_z}{\partial z}$$
+        
+        \item \textbf{Esféricas:}
+        $$\nabla \cdot \vec{A} = \frac{1}{r^2}\frac{\partial}{\partial r}(r^2 A_r) + \frac{1}{r\sin\theta}\frac{\partial}{\partial \theta}(\sin\theta A_\theta) + \frac{1}{r\sin\theta}\frac{\partial A_\phi}{\partial \phi}$$
+    \end{itemize}
+\end{itemize}
+
+\vspace{0.3cm}
+
+% --- STREAMING_CHUNK: Adding Curl formulas and geometric meaning... ---
+\subsection{3. Rotacional ($\nabla \times \vec{A}$)}
+
+El rotacional actúa sobre un campo vectorial $\vec{A}$ y genera un nuevo campo vectorial.
+
+\begin{itemize}
+    \item \textbf{Significado Geométrico y Físico:}
+    El rotacional es una medida de la \textbf{rotación local o circulación angular} de un campo vectorial alrededor de un punto. Si colocáramos un pequeño molinete imaginario en el fluido (representado por el campo vectorial), su eje de rotación apuntaría en la dirección de $\nabla \times \vec{A}$ y su velocidad de giro sería proporcional a la magnitud del rotacional:
+    \begin{itemize}
+        \item $\nabla \times \vec{A} \neq \mathbf{0}$: El campo posee \textbf{vorticidad} o remolinos locales.
+        \item $\nabla \times \vec{A} = \mathbf{0}$: El campo es \textbf{irrotacional} (o conservativo, lo que significa que puede expresarse como el gradiente de un potencial escalar, $ \vec{A} = -\nabla V $).
+    \end{itemize}
+    
+    \item \textbf{Fórmulas por Sistema de Coordenadas:}
+    \begin{itemize}
+        \item \textbf{Rectangulares:}
+        $$\nabla \times \vec{A} = \left(\frac{\partial A_z}{\partial y} - \frac{\partial A_y}{\partial z}\right)\hat{e}_x + \left(\frac{\partial A_x}{\partial z} - \frac{\partial A_z}{\partial x}\right)\hat{e}_y + \left(\frac{\partial A_y}{\partial x} - \frac{\partial A_x}{\partial y}\right)\hat{e}_z$$
+        
+        \item \textbf{Cilíndricas:}
+        $$\nabla \times \vec{A} = \left(\frac{1}{\rho}\frac{\partial A_z}{\partial \phi} - \frac{\partial A_\phi}{\partial z}\right)\hat{e}_\rho + \left(\frac{\partial A_\rho}{\partial z} - \frac{\partial A_z}{\partial \rho}\right)\hat{e}_\phi + \frac{1}{\rho}\left(\frac{\partial}{\partial \rho}(\rho A_\phi) - \frac{\partial A_\rho}{\partial \phi}\right)\hat{e}_z$$
+        
+        \item \textbf{Esféricas:}
+        $$\nabla \times \vec{A} = \frac{1}{r\sin\theta}\left(\frac{\partial}{\partial \theta}(A_\phi\sin\theta) - \frac{\partial A_\theta}{\partial \phi}\right)\hat{e}_r + \frac{1}{r}\left(\frac{1}{\sin\theta}\frac{\partial A_r}{\partial \phi} - \frac{\partial}{\partial r}(r A_\phi)\right)\hat{e}_\theta + \frac{1}{r}\left(\frac{\partial}{\partial r}(r A_\theta) - \frac{\partial A_r}{\partial \theta}\right)\hat{e}_\phi$$
+    \end{itemize}
+\end{itemize}
+
+\vspace{0.5cm}
+
+% --- STREAMING_CHUNK: Adding general orthogonal coordinate operators... ---
+\section{Operadores Diferenciales en Coordenadas Ortogonales Generales}
+
+En un sistema de coordenadas ortogonales generales $(u_1, u_2, u_3)$ definido por sus factores de escala (coeficientes métricos) $(h_1, h_2, h_3)$ y vectores unitarios ortonormales $\{\hat{e}_1, \hat{e}_2, \hat{e}_3\}$, las expresiones de los operadores diferenciales aplicados a un campo escalar $V$ y a un campo vectorial $\vec{A} = A_1\hat{e}_1 + A_2\hat{e}_2 + A_3\hat{e}_3$ adquieren una forma unificada y elegante.
+
+\subsection{1. Gradiente ($\nabla V$)}
+El gradiente generalizado escala la tasa de cambio espacial en la dirección de cada coordenada dividiendo por su respectiva métrica:
+$$\boxed{\nabla V = \frac{1}{h_1}\frac{\partial V}{\partial u_1}\hat{e}_1 + \frac{1}{h_2}\frac{\partial V}{\partial u_2}\hat{e}_2 + \frac{1}{h_3}\frac{\partial V}{\partial u_3}\hat{e}_3}$$
+
+\subsection{2. Divergencia ($\nabla \cdot \vec{A}$)}
+La divergencia generalizada pondera el flujo neto saliente a través del volumen elemental definido por el producto de las tres métricas:
+$$\boxed{\nabla \cdot \vec{A} = \frac{1}{h_1 h_2 h_3} \left[ \frac{\partial}{\partial u_1}(h_2 h_3 A_1) + \frac{\partial}{\partial u_2}(h_1 h_3 A_2) + \frac{\partial}{\partial u_3}(h_1 h_2 A_3) \right]}$$
+
+\subsection{3. Rotacional ($\nabla \times \vec{A}$)}
+El rotacional generalizado puede estructurarse y memorizarse de manera sumamente compacta mediante el siguiente determinante simbólico:
+$$\nabla \times \vec{A} = \frac{1}{h_1 h_2 h_3} \begin{vmatrix} h_1\hat{e}_1 & h_2\hat{e}_2 & h_3\hat{e}_3 \\ \frac{\partial}{\partial u_1} & \frac{\partial}{\partial u_2} & \frac{\partial}{\partial u_3} \\ h_1 A_1 & h_2 A_2 & h_3 A_3 \end{vmatrix}$$
+
+Desarrollando este determinante mediante cofactores en la primera fila, se obtiene su forma explícita por componentes:
+$$\boxed{\nabla \times \vec{A} = \frac{1}{h_2 h_3} \left( \frac{\partial (h_3 A_3)}{\partial u_2} - \frac{\partial (h_2 A_2)}{\partial u_3} \right)\hat{e}_1 + \frac{1}{h_1 h_3} \left( \frac{\partial (h_1 A_1)}{\partial u_3} - \frac{\partial (h_3 A_3)}{\partial u_1} \right)\hat{e}_2 + \frac{1}{h_1 h_2} \left( \frac{\partial (h_2 A_2)}{\partial u_1} - \frac{\partial (h_1 A_1)}{\partial u_2} \right)\hat{e}_3}$$
+
+\end{document}
+```
+eof
+
+He añadido la nueva sección dedicada a las **Coordenadas Ortogonales Generales** en términos de las métricas $h_i$ y las coordenadas generales $u_i$. He estructurado cada uno de los tres operadores principales (Gradiente, Divergencia y Rotacional) con recuadros LaTeX (`\boxed`) para conservar la consistencia estética con las secciones previas. 
+
+Si compruebas con las fórmulas particulares de más arriba, verás cómo sustituir las métricas de la Tabla 1 ($h_i$) en estas fórmulas generales genera con exactitud las expresiones cartesianas, cilíndricas y esféricas. Puedes compilar el PDF pulsando el botón **Preview**.

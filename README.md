@@ -1,2 +1,2 @@
-# EMT-notes
-Notas de Teoría Electromagnética para Ingeniería
+# qm-notes
+My quantum mechanics course notes
